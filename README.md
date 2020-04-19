@@ -8,7 +8,9 @@
 
 This is still a work in progress, but it is mostly functional.
 
-'vmbkup' uses snapshots to enable cloning of running virtual machines.
+'vmbkup' uses snapshots to enable cloning of running virtual machines.  
+
+Beware! All snapshots are removed after the backup process.
 
 You must specify the backup datastore location (which must already be configured and available) BEFORE running the script!
 
