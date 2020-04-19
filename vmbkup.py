@@ -8,8 +8,6 @@
 # on an ESXI host to create backups of 
 # the running virtual machines
 #--------------------------------------#
- 
-
 
 ### TODOS ###
 # - Need to add logging and error checking
@@ -77,14 +75,9 @@ for v in vms:
     snapadd  = "vim-cmd vmsvc/snapshot.create {:s} vmbkup_snap".format(vmid)
     snaprem  = "vim-cmd vmsvc/snapshot.removeall {:s}".format(vmid)
     statecmd = "vim-cmd vmsvc/power.getstate {:s}".format(vmid)
-    startcmd = "" 
     stopcmd  = "vim-cmd vmsvc/power.shutdown {:s}".format(vmid)
     bkupcmd  = "vmkfstools -i {:s} {:s}{:s}.vmdk -d thin".format(vmpath,bkpath,vmname)
-  
     state = list(os.popen(statecmd))
-
-    # if the machine is off, just run the backup.  If it's on, need to snapshot it first
-    # Need to figure out how to wait for the os.popen command to complete before continuing
 
     if "off" in state[1]:
       vmstate = "OFF"
@@ -95,7 +88,6 @@ for v in vms:
     else:
       vmstate = "ON"
       print(vmstate)
-
       print(snapadd)
       sa_results = os.system(snapadd)
       print(bkupcmd)
