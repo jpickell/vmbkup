@@ -8,6 +8,8 @@
 # on an ESXI host to create backups of 
 # the running virtual machines
 #--------------------------------------#
+ 
+
 
 ### TODOS ###
 # - Need to add logging and error checking
@@ -29,8 +31,8 @@ vmlist = os.popen('vim-cmd vmsvc/getallvms')
 vms = list(vmlist)
 
 # Archive existing backups
-bkpathA = bkpath+"/a"
-bkpathB = bkpath+"/b"
+bkpathA = bkpath+"a"
+bkpathB = bkpath+"b"
 
 print("Removing secondary backups from {:s}".format(bkpathB))
 shutil.rmtree(bkpathB)
@@ -82,10 +84,13 @@ for v in vms:
   
     state = list(os.popen(statecmd))
 
+    # if the machine is off, just run the backup.  If it's on, need to snapshot it first
+    # Need to figure out how to wait for the os.popen command to complete before continuing
+
     if "off" in state[1]:
       vmstate = "OFF"
       print("VM {:s} is {:s}; No backup executed".format(vmname,vmstate))
-      #uncommment the following two lines if you want to back up vms that are off
+      #uncommment the following two lines and comment the one above if you want to back up vms that are off
       #print(bkupcmd)
       #bresults = os.system(bkupcmd)
     else:
