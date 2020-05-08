@@ -16,6 +16,13 @@ You must specify the backup datastore location (which must already be configured
 
 Backups are stored in a primary/secondary fashion.  When the tool is run, the secondary location is purged and the primary is then moved to the secondary folder and new backups are placed into the primary folder ensuring that there are two backups available when the process completes.
 
+## Restore Process
+(need to test this out)
+1) Create a new VM
+2) Copy the VMDK disk files to the new VM
+3) Assign the disk file to the new VM
+
+
 ## TODO 
 - Add better error checking around the os level functions
 - Add logging
